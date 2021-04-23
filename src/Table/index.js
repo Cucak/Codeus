@@ -16,7 +16,7 @@ function TableView({ items }) {
           {items.map((item, i) =>
             item.slot && item.city && item.velocity ? (
               <tr key={i}>
-                <td>{i}</td>
+                <td>{item.index}</td>
                 <td> {item.slot}</td>
                 <td>{item.city}</td>
                 <td>{item.velocity}</td>

@@ -14,12 +14,18 @@ function App() {
   });
   const [items, setItems] = useState();
   const [token, setToken] = useState(null);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const getTokenUrl = "https://f-test-02.glitch.me/data";
     axios.get(getTokenUrl).then((res) => {
       setToken(res.data.token);
-    });
+    })
+    .catch(error => {
+      setError(true)
+      setErrorMessage('There were an error with fetching data')
+    })
   }, []);
 
   function handleChange(evt) {
@@ -48,7 +54,11 @@ function App() {
     axios.get(url).then((res) => {
       setToken(res.data.token);
       setItems(res.data.data);
-    });
+    })
+    .catch(error => {
+      setError(true)
+      setErrorMessage('There were an error with fetching data')
+    })
   }
 
   return (
@@ -82,6 +92,7 @@ function App() {
             </Button>
           </Form>
           {items ? <TableView items={items} /> : null}
+          {error ? <p>{errorMessage}</p> : null}
         </Container>
       </Row>
       <img src={logo} alt="logo" />
